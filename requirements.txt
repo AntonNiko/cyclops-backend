@@ -1,0 +1,2 @@
+python-socketio == 5.11.4
+gevent == 24.2.1
