@@ -124,10 +124,15 @@ class Server(socketio.Namespace):
 
 
 if __name__ == '__main__':
-    sio = socketio.Server(async_mode='gevent', ping_timeout=SERVER_PING_TIMEOUT, ping_interval=SERVER_PING_INTERVAL)
+    sio = socketio.Server(
+        async_mode='gevent',
+        ping_timeout=SERVER_PING_TIMEOUT,
+        ping_interval=SERVER_PING_INTERVAL,
+        cors_allowed_origins="*"
+    )
     sio.register_namespace(Server('/'))
     app = socketio.WSGIApp(sio, static_files=static_files)
 
     # Listen of port 8080 for testing
-    pywsgi.WSGIServer(('', 8080), app).serve_forever()
+    pywsgi.WSGIServer(('', 8090), app).serve_forever()
 
