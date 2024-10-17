@@ -2,44 +2,6 @@ import socketio
 from gevent import pywsgi
 from game import Game
 
-# Mapping of HTTP request URLs to files in their relative directories in the project to
-# be served to clients.
-static_files = {
-    '/': 'static/index.html',
-    '/js/helper/player.js': 'static/js/helper/player.js',
-    '/js/helper/player_current.js': 'static/js/helper/player_current.js',
-    '/js/helper/player_other.js': 'static/js/helper/player_other.js',
-    '/js/helper/player_jumping_states.js': 'static/js/helper/player_jumping_states.js',
-    '/js/helper/player_movement_states.js': 'static/js/helper/player_movement_states.js',
-    '/js/platform/boost_platform_factory.js': 'static/js/platform/boost_platform_factory.js',
-    '/js/platform/broken_platform_factory.js': 'static/js/platform/broken_platform_factory.js',
-    '/js/platform/natural_platform_factory.js': 'static/js/platform/natural_platform_factory.js',
-    '/js/platform/platform_manager.js': 'static/js/platform/platform_manager.js',
-    '/js/phaser.min.js': 'static/js/phaser.min.js',
-    '/js/index.js': 'static/js/index.js',
-    '/js/game.js': 'static/js/game.js',
-    '/js/EndScene.js': 'static/js/EndScene.js',
-    '/js/socket.io.min.js': 'static/js/socket.io.min.js',
-    '/assets/sky.png': 'static/assets/sky.png',
-    '/assets/nature-row.png': 'static/assets/nature-row.png',
-    '/assets/nature-left.png': 'static/assets/nature-left.png',
-    '/assets/nature-center.png': 'static/assets/nature-center.png',
-    '/assets/nature-right.png': 'static/assets/nature-right.png',
-    '/assets/nature-rectangle.png': 'static/assets/nature-rectangle.png',
-    '/assets/broken.png': 'static/assets/broken.png',
-    '/assets/mushroom.png': 'static/assets/mushroom.png',
-    '/assets/mountain.png': 'static/assets/mountain.png',
-    '/assets/dino-yellow.png': 'static/assets/dino-yellow.png',
-    '/assets/dino-yellow-reverse.png': 'static/assets/dino-yellow-reverse.png',
-    '/assets/dino-green.png': 'static/assets/dino-green.png',
-    '/assets/dino-green-reverse.png': 'static/assets/dino-green-reverse.png',
-    '/assets/dino-red.png': 'static/assets/dino-red.png',
-    '/assets/dino-red-reverse.png': 'static/assets/dino-red-reverse.png',
-    '/assets/dino-blue.png': 'static/assets/dino-blue.png',
-    '/assets/dino-blue-reverse.png': 'static/assets/dino-blue-reverse.png',
-    '/assets/flag.png': 'static/assets/flag.png'
-}
-
 # Server timeout and ping interval in seconds. Timeout should be larger than interval
 # to account for multiple ping intervals.
 SERVER_PING_TIMEOUT = 5.0
@@ -131,7 +93,7 @@ if __name__ == '__main__':
         cors_allowed_origins="*"
     )
     sio.register_namespace(Server('/'))
-    app = socketio.WSGIApp(sio, static_files=static_files)
+    app = socketio.WSGIApp(sio)
 
     # Listen of port 8080 for testing
     pywsgi.WSGIServer(('', 8090), app).serve_forever()
